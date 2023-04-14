@@ -23,14 +23,14 @@ main () {
   fi
 
   local jre_dir
-  if [[ "${java_version}" =~ (6|7|8) && "${os}" != "zos" ]]; then
+  if [[ "${java_version}" =~ ^(6|7|8)$ && "${os}" != "zos" ]]; then
     jre_dir="${java_home}/jre/lib"
   else
     jre_dir="${java_home}/lib"
   fi
 
   local lib_dir=""
-  if [[ "${os}" == "linux" && ! "${java_version}" =~ (6|7|8) ]]; then
+  if [[ "${os}" == "linux" && ! "${java_version}" =~ ^(6|7|8)$ ]]; then
     # no arch on JDK 9+
     lib_dir="${jre_dir}/server"
   elif [[ "${os}" == "linux" && "${target_arch}" == "arm" ]]; then
@@ -49,7 +49,7 @@ main () {
     target_arch=`uname -m`
     if [[ -d ${jre_dir}/${target_arch}/classic ]]; then lib_dir="${jre_dir}"/${target_arch}/classic; else lib_dir="${jre_dir}"/${target_arch}/server; fi
   elif [[ "${os}" == "mac" ]]; then
-    lib_dir="${jre_dir}/jli"
+    if [[ -d ${jre_dir}/jli ]]; then lib_dir="${jre_dir}/jli"; else lib_dir="${jre_dir}"; fi
   else
     local arch
     if [[ "${target_arch}" =~ (32|386) ]]; then
