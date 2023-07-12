@@ -45,7 +45,7 @@ main () {
     if [[ -d ${jre_dir}/s390x/classic ]]; then lib_dir="${jre_dir}"/s390x/classic; else lib_dir="${jre_dir}"/s390/classic; fi
   elif [[ "${os}" == "zos" ]]; then
     lib_dir="${jre_dir}"/s390x/classic
-  elif [[ "${os}" == "linux" ]] && [[ "${target_arch}" == "ppc64" || "${target_arch}" == "ppc" ]]; then
+  elif [[ "${os}" == "linux" || "${os}" == "aix"]] && [[ "${target_arch}" == "ppc64" || "${target_arch}" == "ppc" ]]; then
     target_arch=`uname -m`
     if [[ -d ${jre_dir}/${target_arch}/classic ]]; then lib_dir="${jre_dir}"/${target_arch}/classic; else lib_dir="${jre_dir}"/${target_arch}/server; fi
   elif [[ "${os}" == "mac" ]]; then
@@ -63,8 +63,6 @@ main () {
       lib_dir="${jre_dir}/${arch}/server"
     elif [[ "${os}" == "openbsd" ]]; then
       lib_dir="${jre_dir}/${arch}/server"
-    elif [[ "${os}" == "aix" ]]; then
-      lib_dir="${jre_dir}/server"
     fi
   fi
 
