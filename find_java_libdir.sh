@@ -63,6 +63,8 @@ main () {
       lib_dir="${jre_dir}/${arch}/server"
     elif [[ "${os}" == "openbsd" ]]; then
       lib_dir="${jre_dir}/${arch}/server"
+    elif [[ "${os}" == "aix" ]]; then
+      lib_dir="${jre_dir}/server"
     fi
   fi
 
